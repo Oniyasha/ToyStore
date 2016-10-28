@@ -1,0 +1,431 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QLSHOPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BAOCAO">
+          <Key>
+            <PropertyRef Name="MABC" />
+          </Key>
+          <Property Name="MABC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYBAOCAO" Type="date" />
+          <Property Name="TONGGIATRI" Type="float" />
+        </EntityType>
+        <EntityType Name="CTHD">
+          <Key>
+            <PropertyRef Name="MAHD" />
+            <PropertyRef Name="MADC" />
+          </Key>
+          <Property Name="MAHD" Type="int" Nullable="false" />
+          <Property Name="MADC" Type="int" Nullable="false" />
+          <Property Name="SL" Type="int" />
+        </EntityType>
+        <EntityType Name="DOCHOI">
+          <Key>
+            <PropertyRef Name="MADC" />
+          </Key>
+          <Property Name="MADC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENDC" Type="nvarchar" MaxLength="200" />
+          <Property Name="SL" Type="int" />
+          <Property Name="NUOCSX" Type="nvarchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="HOADON">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NGAYHD" Type="date" Nullable="false" />
+          <Property Name="MAKH" Type="int" />
+          <Property Name="MANV" Type="int" Nullable="false" />
+          <Property Name="TRIGIA" Type="float" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MAKH" />
+          </Key>
+          <Property Name="MAKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENKH" Type="nvarchar" MaxLength="30" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="11" />
+          <Property Name="CMT" Type="nvarchar" MaxLength="10" />
+          <Property Name="DIEMTL" Type="int" />
+        </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TENNV" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NGAYSINH" Type="date" Nullable="false" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="11" />
+          <Property Name="PHAI" Type="nvarchar" MaxLength="4" />
+          <Property Name="CMT" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="PASS" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="QUA">
+          <Key>
+            <PropertyRef Name="MAQUA" />
+          </Key>
+          <Property Name="MAQUA" Type="int" Nullable="false" />
+          <Property Name="SODIEM" Type="int" />
+        </EntityType>
+        <Association Name="FK__CTHD__MADC__300424B4">
+          <End Role="DOCHOI" Type="Self.DOCHOI" Multiplicity="1" />
+          <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCHOI">
+              <PropertyRef Name="MADC" />
+            </Principal>
+            <Dependent Role="CTHD">
+              <PropertyRef Name="MADC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CTHD__MAHD__2F10007B">
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
+          <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADON">
+              <PropertyRef Name="MAHD" />
+            </Principal>
+            <Dependent Role="CTHD">
+              <PropertyRef Name="MAHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HOADON__MAKH__30F848ED">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MAKH" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HOADON__MANV__31EC6D26">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QUA__MAQUA__32E0915F">
+          <End Role="DOCHOI" Type="Self.DOCHOI" Multiplicity="1" />
+          <End Role="QUA" Type="Self.QUA" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DOCHOI">
+              <PropertyRef Name="MADC" />
+            </Principal>
+            <Dependent Role="QUA">
+              <PropertyRef Name="MAQUA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLSHOPModelStoreContainer">
+          <EntitySet Name="BAOCAO" EntityType="Self.BAOCAO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CTHD" EntityType="Self.CTHD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCHOI" EntityType="Self.DOCHOI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HOADON" EntityType="Self.HOADON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KHACHHANG" EntityType="Self.KHACHHANG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUA" EntityType="Self.QUA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CTHD__MADC__300424B4" Association="Self.FK__CTHD__MADC__300424B4">
+            <End Role="DOCHOI" EntitySet="DOCHOI" />
+            <End Role="CTHD" EntitySet="CTHD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CTHD__MAHD__2F10007B" Association="Self.FK__CTHD__MAHD__2F10007B">
+            <End Role="HOADON" EntitySet="HOADON" />
+            <End Role="CTHD" EntitySet="CTHD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HOADON__MAKH__30F848ED" Association="Self.FK__HOADON__MAKH__30F848ED">
+            <End Role="KHACHHANG" EntitySet="KHACHHANG" />
+            <End Role="HOADON" EntitySet="HOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HOADON__MANV__31EC6D26" Association="Self.FK__HOADON__MANV__31EC6D26">
+            <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+            <End Role="HOADON" EntitySet="HOADON" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QUA__MAQUA__32E0915F" Association="Self.FK__QUA__MAQUA__32E0915F">
+            <End Role="DOCHOI" EntitySet="DOCHOI" />
+            <End Role="QUA" EntitySet="QUA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QLSHOPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BAOCAO">
+          <Key>
+            <PropertyRef Name="MABC" />
+          </Key>
+          <Property Name="MABC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYBAOCAO" Type="DateTime" Precision="0" />
+          <Property Name="TONGGIATRI" Type="Double" />
+        </EntityType>
+        <EntityType Name="CTHD">
+          <Key>
+            <PropertyRef Name="MAHD" />
+            <PropertyRef Name="MADC" />
+          </Key>
+          <Property Name="MAHD" Type="Int32" Nullable="false" />
+          <Property Name="MADC" Type="Int32" Nullable="false" />
+          <Property Name="SL" Type="Int32" />
+          <NavigationProperty Name="DOCHOI" Relationship="Self.FK__CTHD__MADC__300424B4" FromRole="CTHD" ToRole="DOCHOI" />
+          <NavigationProperty Name="HOADON" Relationship="Self.FK__CTHD__MAHD__2F10007B" FromRole="CTHD" ToRole="HOADON" />
+        </EntityType>
+        <EntityType Name="DOCHOI">
+          <Key>
+            <PropertyRef Name="MADC" />
+          </Key>
+          <Property Name="MADC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENDC" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SL" Type="Int32" />
+          <Property Name="NUOCSX" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CTHDs" Relationship="Self.FK__CTHD__MADC__300424B4" FromRole="DOCHOI" ToRole="CTHD" />
+          <NavigationProperty Name="QUA" Relationship="Self.FK__QUA__MAQUA__32E0915F" FromRole="DOCHOI" ToRole="QUA" />
+        </EntityType>
+        <EntityType Name="HOADON">
+          <Key>
+            <PropertyRef Name="MAHD" />
+          </Key>
+          <Property Name="MAHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NGAYHD" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MAKH" Type="Int32" />
+          <Property Name="MANV" Type="Int32" Nullable="false" />
+          <Property Name="TRIGIA" Type="Double" />
+          <NavigationProperty Name="CTHDs" Relationship="Self.FK__CTHD__MAHD__2F10007B" FromRole="HOADON" ToRole="CTHD" />
+          <NavigationProperty Name="KHACHHANG" Relationship="Self.FK__HOADON__MAKH__30F848ED" FromRole="HOADON" ToRole="KHACHHANG" />
+          <NavigationProperty Name="NHANVIEN" Relationship="Self.FK__HOADON__MANV__31EC6D26" FromRole="HOADON" ToRole="NHANVIEN" />
+        </EntityType>
+        <EntityType Name="KHACHHANG">
+          <Key>
+            <PropertyRef Name="MAKH" />
+          </Key>
+          <Property Name="MAKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENKH" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="CMT" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DIEMTL" Type="Int32" />
+          <NavigationProperty Name="HOADONs" Relationship="Self.FK__HOADON__MAKH__30F848ED" FromRole="KHACHHANG" ToRole="HOADON" />
+        </EntityType>
+        <EntityType Name="NHANVIEN">
+          <Key>
+            <PropertyRef Name="MANV" />
+          </Key>
+          <Property Name="MANV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TENNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NGAYSINH" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SDT" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="PHAI" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="CMT" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASS" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="HOADONs" Relationship="Self.FK__HOADON__MANV__31EC6D26" FromRole="NHANVIEN" ToRole="HOADON" />
+        </EntityType>
+        <EntityType Name="QUA">
+          <Key>
+            <PropertyRef Name="MAQUA" />
+          </Key>
+          <Property Name="MAQUA" Type="Int32" Nullable="false" />
+          <Property Name="SODIEM" Type="Int32" />
+          <NavigationProperty Name="DOCHOI" Relationship="Self.FK__QUA__MAQUA__32E0915F" FromRole="QUA" ToRole="DOCHOI" />
+        </EntityType>
+        <Association Name="FK__CTHD__MADC__300424B4">
+          <End Role="DOCHOI" Type="Self.DOCHOI" Multiplicity="1" />
+          <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCHOI">
+              <PropertyRef Name="MADC" />
+            </Principal>
+            <Dependent Role="CTHD">
+              <PropertyRef Name="MADC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CTHD__MAHD__2F10007B">
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="1" />
+          <End Role="CTHD" Type="Self.CTHD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HOADON">
+              <PropertyRef Name="MAHD" />
+            </Principal>
+            <Dependent Role="CTHD">
+              <PropertyRef Name="MAHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QUA__MAQUA__32E0915F">
+          <End Role="DOCHOI" Type="Self.DOCHOI" Multiplicity="1" />
+          <End Role="QUA" Type="Self.QUA" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DOCHOI">
+              <PropertyRef Name="MADC" />
+            </Principal>
+            <Dependent Role="QUA">
+              <PropertyRef Name="MAQUA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HOADON__MAKH__30F848ED">
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KHACHHANG">
+              <PropertyRef Name="MAKH" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="MAKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HOADON__MANV__31EC6D26">
+          <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="1" />
+          <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NHANVIEN">
+              <PropertyRef Name="MANV" />
+            </Principal>
+            <Dependent Role="HOADON">
+              <PropertyRef Name="MANV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QLSHOPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BAOCAOs" EntityType="Self.BAOCAO" />
+          <EntitySet Name="CTHDs" EntityType="Self.CTHD" />
+          <EntitySet Name="DOCHOIs" EntityType="Self.DOCHOI" />
+          <EntitySet Name="HOADONs" EntityType="Self.HOADON" />
+          <EntitySet Name="KHACHHANGs" EntityType="Self.KHACHHANG" />
+          <EntitySet Name="NHANVIENs" EntityType="Self.NHANVIEN" />
+          <EntitySet Name="QUAs" EntityType="Self.QUA" />
+          <AssociationSet Name="FK__CTHD__MADC__300424B4" Association="Self.FK__CTHD__MADC__300424B4">
+            <End Role="DOCHOI" EntitySet="DOCHOIs" />
+            <End Role="CTHD" EntitySet="CTHDs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CTHD__MAHD__2F10007B" Association="Self.FK__CTHD__MAHD__2F10007B">
+            <End Role="HOADON" EntitySet="HOADONs" />
+            <End Role="CTHD" EntitySet="CTHDs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QUA__MAQUA__32E0915F" Association="Self.FK__QUA__MAQUA__32E0915F">
+            <End Role="DOCHOI" EntitySet="DOCHOIs" />
+            <End Role="QUA" EntitySet="QUAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HOADON__MAKH__30F848ED" Association="Self.FK__HOADON__MAKH__30F848ED">
+            <End Role="KHACHHANG" EntitySet="KHACHHANGs" />
+            <End Role="HOADON" EntitySet="HOADONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HOADON__MANV__31EC6D26" Association="Self.FK__HOADON__MANV__31EC6D26">
+            <End Role="NHANVIEN" EntitySet="NHANVIENs" />
+            <End Role="HOADON" EntitySet="HOADONs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QLSHOPModelStoreContainer" CdmEntityContainer="QLSHOPEntities">
+          <EntitySetMapping Name="BAOCAOs">
+            <EntityTypeMapping TypeName="QLSHOPModel.BAOCAO">
+              <MappingFragment StoreEntitySet="BAOCAO">
+                <ScalarProperty Name="MABC" ColumnName="MABC" />
+                <ScalarProperty Name="NGAYBAOCAO" ColumnName="NGAYBAOCAO" />
+                <ScalarProperty Name="TONGGIATRI" ColumnName="TONGGIATRI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CTHDs">
+            <EntityTypeMapping TypeName="QLSHOPModel.CTHD">
+              <MappingFragment StoreEntitySet="CTHD">
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+                <ScalarProperty Name="MADC" ColumnName="MADC" />
+                <ScalarProperty Name="SL" ColumnName="SL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCHOIs">
+            <EntityTypeMapping TypeName="QLSHOPModel.DOCHOI">
+              <MappingFragment StoreEntitySet="DOCHOI">
+                <ScalarProperty Name="MADC" ColumnName="MADC" />
+                <ScalarProperty Name="TENDC" ColumnName="TENDC" />
+                <ScalarProperty Name="SL" ColumnName="SL" />
+                <ScalarProperty Name="NUOCSX" ColumnName="NUOCSX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HOADONs">
+            <EntityTypeMapping TypeName="QLSHOPModel.HOADON">
+              <MappingFragment StoreEntitySet="HOADON">
+                <ScalarProperty Name="MAHD" ColumnName="MAHD" />
+                <ScalarProperty Name="NGAYHD" ColumnName="NGAYHD" />
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="TRIGIA" ColumnName="TRIGIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KHACHHANGs">
+            <EntityTypeMapping TypeName="QLSHOPModel.KHACHHANG">
+              <MappingFragment StoreEntitySet="KHACHHANG">
+                <ScalarProperty Name="MAKH" ColumnName="MAKH" />
+                <ScalarProperty Name="TENKH" ColumnName="TENKH" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="CMT" ColumnName="CMT" />
+                <ScalarProperty Name="DIEMTL" ColumnName="DIEMTL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NHANVIENs">
+            <EntityTypeMapping TypeName="QLSHOPModel.NHANVIEN">
+              <MappingFragment StoreEntitySet="NHANVIEN">
+                <ScalarProperty Name="MANV" ColumnName="MANV" />
+                <ScalarProperty Name="TENNV" ColumnName="TENNV" />
+                <ScalarProperty Name="NGAYSINH" ColumnName="NGAYSINH" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="PHAI" ColumnName="PHAI" />
+                <ScalarProperty Name="CMT" ColumnName="CMT" />
+                <ScalarProperty Name="PASS" ColumnName="PASS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUAs">
+            <EntityTypeMapping TypeName="QLSHOPModel.QUA">
+              <MappingFragment StoreEntitySet="QUA">
+                <ScalarProperty Name="MAQUA" ColumnName="MAQUA" />
+                <ScalarProperty Name="SODIEM" ColumnName="SODIEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

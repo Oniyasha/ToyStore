@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToyStore", "ToyStore\ToySto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATA", "DATA\DATA.csproj", "{D756562B-FA24-4C52-B2FA-0C3B454176C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUS", "BUS\BUS.csproj", "{281BDC54-9B79-449A-BD94-06D3C3649A3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D756562B-FA24-4C52-B2FA-0C3B454176C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D756562B-FA24-4C52-B2FA-0C3B454176C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D756562B-FA24-4C52-B2FA-0C3B454176C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{281BDC54-9B79-449A-BD94-06D3C3649A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281BDC54-9B79-449A-BD94-06D3C3649A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281BDC54-9B79-449A-BD94-06D3C3649A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281BDC54-9B79-449A-BD94-06D3C3649A3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
