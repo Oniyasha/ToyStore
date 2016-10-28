@@ -8,5 +8,6 @@ namespace DATA
 {
     public class Class1
     {
+        // Luan Lam le cho tao cai giao dien
     }
 }
